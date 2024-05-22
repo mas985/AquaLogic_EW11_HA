@@ -432,9 +432,9 @@ class AquaLogic():
             self._append_data(frame, key.value.to_bytes(4, byteorder='little'))
         else:
             self._append_data(frame, key.value.to_bytes(2, byteorder='little'))
-            self._append_data(frame, b'\x00\x00') # Comment out for P4
+            self._append_data(frame, b'\x00\x00') # Comment out for P4 MOD
             self._append_data(frame, key.value.to_bytes(2, byteorder='little'))
-            self._append_data(frame, b'\x00\x00') # Comment out for P4
+            self._append_data(frame, b'\x00\x00') # Comment out for P4 MOD
 # MOD END
         crc = 0
         for byte in frame:

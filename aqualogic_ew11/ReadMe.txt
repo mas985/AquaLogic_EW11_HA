@@ -1,4 +1,4 @@
-P4 users, comment out lines 435 & 437
+P4 users, comment out lines that have "P4 MOD"
 
 Add this folder to custom_components/aqualogic_ew11
 
