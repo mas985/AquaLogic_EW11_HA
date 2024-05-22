@@ -1,6 +1,6 @@
 For P4 users, comment out lines 435 & 437
 
-Add this folder to custom_components
+Add this folder to custom_components/aqualogic_ew11
 
 These lines should be added and customized into configuration.yaml
 
