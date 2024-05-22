@@ -1,4 +1,4 @@
-For P4 users, comment out lines 435 & 437
+P4 users, comment out lines 435 & 437
 
 Add this folder to custom_components/aqualogic_ew11
 
