@@ -1,0 +1,7 @@
+{
+  "domain": "aqualogic_ew11",
+  "name": "AQL_PS_8",
+  "version": "1.2.4",
+  "documentation": "https://github.com/mas985/HA_AquaLogic",
+  "codeowners": ["@mas985"]
+}
