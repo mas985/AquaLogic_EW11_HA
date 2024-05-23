@@ -5,7 +5,7 @@ Add this folder to custom_components/aqualogic_ew11
 These lines should be added and customized into configuration.yaml
 
 aqualogic_ew11:
-  host: IP ADDRESS HERE
+  host: 192.168.0.15
   port: 8899
 sensor:
   - platform: aqualogic_ew11
@@ -29,5 +29,7 @@ switch:
       - aux_4
       - aux_5
       - aux_6
-      - valve_3
+      - valve_3      
+      - valve_4      
+      - Heater_1
       - filter_low_speed

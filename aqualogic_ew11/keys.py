@@ -20,7 +20,6 @@ class Keys(IntEnum):
     AUX_5 = 0x2000
     AUX_6 = 0x4000
     AUX_7 = 0x8000
-    # These are only valid for WIRELESS_KEY_EVENTs
     VALVE_3 = 0x00010000
     VALVE_4 = 0x00020000
     HEATER_1 = 0x00040000
