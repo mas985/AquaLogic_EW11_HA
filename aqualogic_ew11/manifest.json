@@ -1,6 +1,6 @@
 {
   "domain": "aqualogic_ew11",
-  "name": "AQL_PS_8",
+  "name": "AQL_EW11_HA",
   "version": "1.2.4",
   "documentation": "https://github.com/mas985/AquaLogic_EW11_HA",
   "codeowners": ["@mas985"]
