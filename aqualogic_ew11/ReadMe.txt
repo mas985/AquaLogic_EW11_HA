@@ -1,4 +1,6 @@
-P4 users, comment out lines that have "P4 MOD"
+P4 users, change the following line in core.py to False
+
+    PS8MODE = True # False for P4
 
 Add this folder to custom_components/aqualogic_ew11
 
@@ -31,5 +33,5 @@ switch:
       - aux_6
       - valve_3      
       - valve_4      
-      - Heater_1
+      - heater_1
       - filter_low_speed
