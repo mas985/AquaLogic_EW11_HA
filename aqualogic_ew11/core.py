@@ -11,6 +11,7 @@ import socket
 import time
 import serial
 import datetime
+import string
 
 #Commented out all web server code
 #from .web import WebServer
@@ -301,7 +302,7 @@ class AquaLogic():
                         data_changed_callback(self)
                 elif frame_type == self.FRAME_TYPE_DISPLAY_UPDATE:
                     # Convert LCD-specific degree symbol and decode to utf-8/latin-1
-                    text = frame.replace(b'\xba', b'\xc2\xb0').decode('utf-8') #, errors='ignore')
+                    text = self.Byte2string(frame)   # .replace(b'\xba', b'\xc2\xb0').decode('utf-8') #, errors='ignore')
                     parts = text.split()
                     _LOGGER.debug('%3.3f: Display update: %s',
                                   frame_start_time, parts)
@@ -414,6 +415,29 @@ class AquaLogic():
             _LOGGER.info('Socket Error (Process): %s',error)
             return
 # Mod End
+
+    def Byte2string(self, frame):
+        tStr = ""
+        bStr = ""
+        slen = len(frame)
+        isplt = slen // 2
+        for i in range(0, slen-1):
+            if frame[i] == 0:
+                break
+            cc = chr(frame[i] - 128) if frame[i] >= 128 else chr(frame[i])
+            if i < isplt:
+                tStr += cc
+            else:
+                if frame[i] != 186 and (i == 0 or frame[i-1] != 186):
+                    if frame[i] >= 128 and (i == 0 or frame[i-1] < 128):
+                        bStr += "["
+                    elif frame[i] < 128 and (i == 0 or frame[i-1] >= 128):
+                        bStr += "]"
+                bStr += cc
+        if "[" in bStr and "]" not in bStr:
+            bStr += "]"
+        result = (tStr.strip() + "\n" + bStr.strip())
+        return result.replace("  ", " ").replace("  ", " ").replace("_", "°").replace(" :", ":").replace("[ ", "[").replace(" ]", "]").strip()
 
     def _append_data(self, frame, data):
         for byte in data:
