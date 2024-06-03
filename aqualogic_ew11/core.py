@@ -392,6 +392,8 @@ class AquaLogic():
                             self._heater_auto_mode = parts[1] == 'Auto'
                     except ValueError:
                         pass
+                    except IndexError:
+                        pass
                 elif frame_type == self.FRAME_TYPE_LONG_DISPLAY_UPDATE:
                     # Not currently parsed
                     pass
