@@ -24,7 +24,8 @@ class AquaLogic():
     """Hayward/Goldline AquaLogic/ProLogic pool controller."""
 
     # pylint: disable=too-many-instance-attributes
-    PS8MODE = True # Disable for P4
+    PS8_MODE = True # Disable for P4
+    MENU_LOCK = False
     
     FRAME_DLE = 0x10
     FRAME_STX = 0x02
@@ -252,7 +253,6 @@ class AquaLogic():
 #                    continue
                 self._send_frame()
 # Mod End
-
                 if frame_type == self.FRAME_TYPE_LOCAL_WIRED_KEY_EVENT:
                    _LOGGER.debug('%3.3f: Local Wired Key: %s',
                                   frame_start_time, binascii.hexlify(frame))
@@ -313,6 +313,7 @@ class AquaLogic():
                         data_changed_callback(self)
 
                     try:
+                        self.MENU_LOCK = ('Menu-Locked' in text)
                         if parts[0] == 'Pool' and parts[1] == 'Temp':
                             # Pool Temp <temp>°[C|F]
                             value = int(parts[2][:-2])
@@ -390,7 +391,7 @@ class AquaLogic():
 # Mod End           
                         elif parts[0] == 'Heater1':
                             self._heater_auto_mode = parts[1] == 'Auto'
-                    except ValueError:
+                            
                         pass
                     except IndexError:
                         pass
@@ -454,15 +455,18 @@ class AquaLogic():
 
 # MOD BEGIN - EW11 PS8/P4
         self._append_data(frame, self.FRAME_TYPE_LOCAL_WIRED_KEY_EVENT)
+        
+        if key == Keys.RIGHT and self.MENU_LOCK:
+            key = Keys.LRBTN
 
         if key.value > 0xffff:
             self._append_data(frame, key.value.to_bytes(4, byteorder='little'))
             self._append_data(frame, key.value.to_bytes(4, byteorder='little'))
         else:
             self._append_data(frame, key.value.to_bytes(2, byteorder='little'))
-            if self.PS8MODE: self._append_data(frame, b'\x00\x00')
+            if self.PS8_MODE: self._append_data(frame, b'\x00\x00')
             self._append_data(frame, key.value.to_bytes(2, byteorder='little'))
-            if self.PS8MODE: self._append_data(frame, b'\x00\x00')
+            if self.PS8_MODE: self._append_data(frame, b'\x00\x00')
 # MOD END
         crc = 0
         for byte in frame:
