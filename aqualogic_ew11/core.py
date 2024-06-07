@@ -439,7 +439,7 @@ class AquaLogic():
                 bStr += cc
         if "[" in bStr and "]" not in bStr:
             bStr += "]"
-        result = (tStr.strip() + "\n" + bStr.strip())
+        result = (tStr.strip() + " " + bStr.strip())
         return result.replace("  ", " ").replace("  ", " ").replace("_", "°").replace(" :", ":").replace("[ ", "[").replace(" ]", "]").strip()
 
     def _append_data(self, frame, data):
