@@ -24,7 +24,7 @@ class AquaLogic():
     """Hayward/Goldline AquaLogic/ProLogic pool controller."""
 
     # pylint: disable=too-many-instance-attributes
-    PS8_MODE = True # Disable for P4
+    PS_MODE = True      # Disable for P4
     MENU_LOCK = False
     
     FRAME_DLE = 0x10
@@ -453,7 +453,7 @@ class AquaLogic():
         frame.append(self.FRAME_DLE)
         frame.append(self.FRAME_STX)
 
-# MOD BEGIN - EW11 PS8/P4
+# MOD BEGIN - EW11 PS/P4
         self._append_data(frame, self.FRAME_TYPE_LOCAL_WIRED_KEY_EVENT)
         
         if key == Keys.RIGHT and self.MENU_LOCK:
@@ -464,9 +464,9 @@ class AquaLogic():
             self._append_data(frame, key.value.to_bytes(4, byteorder='little'))
         else:
             self._append_data(frame, key.value.to_bytes(2, byteorder='little'))
-            if self.PS8_MODE: self._append_data(frame, b'\x00\x00')
+            if self.PS_MODE: self._append_data(frame, b'\x00\x00')
             self._append_data(frame, key.value.to_bytes(2, byteorder='little'))
-            if self.PS8_MODE: self._append_data(frame, b'\x00\x00')
+            if self.PS_MODE: self._append_data(frame, b'\x00\x00')
 # MOD END
         crc = 0
         for byte in frame:
