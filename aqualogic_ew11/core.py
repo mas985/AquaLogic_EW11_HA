@@ -335,13 +335,13 @@ class AquaLogic():
                                 self._air_temp = value
                                 self._is_metric = parts[2][-1:] == 'C'
                                 data_changed_callback(self)
-                        elif parts[0] == 'Pool' and parts[1] == 'Chlorinator':
+                        elif parts[0] == 'Pool' and parts[1] == 'Chlorinator' and not '[' in parts[2]:
                             # Pool Chlorinator <value>%
                             value = int(parts[2][:-1])
                             if self._pool_chlorinator != value:
                                 self._pool_chlorinator = value
                                 data_changed_callback(self)
-                        elif parts[0] == 'Spa' and parts[1] == 'Chlorinator':
+                        elif parts[0] == 'Spa' and parts[1] == 'Chlorinator' and not '[' in parts[2]:
                             # Spa Chlorinator <value>%
                             value = int(parts[2][:-1])
                             if self._spa_chlorinator != value:
