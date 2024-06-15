@@ -6,6 +6,10 @@ Add this folder to custom_components/aqualogic_ew11
 
 These lines should be added and customized into configuration.yaml
 
+logger:
+#  default: debug
+  logs:
+    custom_components.aqualogic_ew11: debug
 aqualogic_ew11:
   host: 192.168.0.15
   port: 8899
