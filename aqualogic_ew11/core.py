@@ -302,7 +302,9 @@ class AquaLogic():
                     if self._pump_power != power:
                         self._pump_power = power
                         data_changed_callback(self)
-                elif frame_type == self.FRAME_TYPE_DISPLAY_UPDATE:
+                elif frame_type == self.FRAME_TYPE_DISPLAY_UPDATE or 
+                    frame_type == self.FRAME_TYPE_DISPLAY_SERVICE or 
+                    frame_type == self.FRAME_TYPE_SERVICE_MODE:
                     # Convert LCD-specific degree symbol and decode to utf-8/latin-1
                     text = self.Byte2string(frame)   # .replace(b'\xba', b'\xc2\xb0').decode('utf-8') #, errors='ignore')
                     parts = text.split()
